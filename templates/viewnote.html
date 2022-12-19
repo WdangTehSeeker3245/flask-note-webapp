@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block content %}
+    {% if data %}
+        <div class="container-sm mt-4">
+            <h2 class="text-center"><u>{{ data['title_note'] }}</u></h2>
+            <center>
+                <a class="btn btn-secondary" href="{{ url_for('home') }}"><i class="fa fa-home"></i></a>
+                <a class="btn btn-warning" href="http://localhost:5000/editnote/{{ data['id_note'] }}"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-danger" href="http://localhost:5000/deletenote/{{ data['id_note'] }}"><i class="fa fa-trash"></i></a>
+            </center>
+            <hr>
+            {{ data['html_note']|safe }}
+        </div>
+    {% else %}
+        <script>
+            alert('Note Corrupt or Deleted')
+            location.replace('http://localhost:5000/')
+        </script>
+    {% endif %}
+{% endblock %}

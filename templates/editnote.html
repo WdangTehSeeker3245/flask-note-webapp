@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block extdcss %}
+    <link href="{{ url_for('static', filename='lib/summernote0.8.18/summernote-lite.min.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block extdjshead %}
+    <script src="{{ url_for('static', filename='lib/summernote0.8.18/summernote-lite.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container-sm">
+        <h2 class="m-2 fw-bold text-uppercase text-center mt-4"><u>Add Notes</u></h2>
+        <center>
+            <a href="{{ url_for('home') }}" class="btn btn-secondary mt-2">Back To Home</a>
+        </center>
+        <hr>
+        <form action="" method="POST">
+            <div class="form-group">
+                <input type="hidden" class="form-control mb-2" name="id" id="id" value="{{  data['id_note'] }}">
+                <input type="text" class="form-control mb-2" name="title" id="title" value="{{  data['title_note'] }}" placeholder="Title Note">
+                <textarea name="note" id="note">{{  data['html_note'] }}</textarea>
+                <center>
+                    <button id="editnote" class="btn btn-success my-2">Edit Note</button>
+                </center>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block extdjs %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#note').summernote({
+                placeholder: 'Write Note Here....',
+                tabsize: 2,
+                height: 444
+            });
+            $('#editnote').click(function () {
+                var id = $('#id').val()
+                var title = $('#title').val()
+                var note = $('#note').val() 
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:5000/ajax/updatenote",
+                    data: JSON.stringify({
+                        id:id,
+                        title:title,
+                        note:note
+                    }),
+                    dataType: "json",
+                    contentType:"application/json; charset=UTF-8",
+                    async: false,
+                    cache: false,
+                    timeout: 30000,
+                    success: function (data) {
+                        alert(data['msg'])
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

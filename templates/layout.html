@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flasknote Basic</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/bootstrap5.1.3/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/fontawesome6.1.1/css/all.min.css') }}">
+    {% block extdcss %}{% endblock %}
+    <style>
+        * {
+            margin:0;
+        }
+    </style>
+    <script src="{{ url_for('static', filename='lib/jquery3.6.0/jquery-3.6.0.min.js') }}"></script>
+    {% block extdjshead %}{% endblock %}
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+
+    {% block extdjs %}{% endblock %}
+    <script src="{{ url_for('static', filename='lib/bootstrap5.1.3/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/fontawesome6.1.1/js/all.min.js') }}"></script>
+</body>
+</html>

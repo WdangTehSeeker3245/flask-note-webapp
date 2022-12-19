@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% include 'navbar.html' %}
+    
+    <div class="container-sm">
+        <h2 class="display-4 mt-4 mb-3">Search Result</h2>
+        <hr>
+        <div id="listnote">
+
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block extdjs %}
+  <script type="text/javascript">
+    $(document).ready(function () {
+        // Handle Search Query
+        $('#searchbtn').click(function () { 
+            var query = $('#searchbar').val()
+            var searchroute = 'http://localhost:5000/searchnote?q='
+            if (query == null || query == "") {
+            alert('Please insert search query.')
+            } else {
+            location.replace(searchroute+query)
+            }
+        });
+
+        var query = '{{ query }}'
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:5000/ajax/findnote",
+            data: JSON.stringify({
+                query:query
+            }),
+            dataType: "json",
+            contentType:"application/json; charset=UTF-8",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    var x = i + 1
+                    var listnote_item = '<div class="row">'+
+                       '<div class="col">'+
+                         x+
+                       '</div>'+
+                       '<div class="col">'+
+                         data[i].title_note+
+                       '</div>'+
+                       '<div class="col">'+
+                         '<a href="http://localhost:5000/viewnote/'+data[i].id_note+'">View Note<a>'+
+                       '</div>'+
+                     '</div>';
+                    $('#listnote').append(listnote_item)
+                 }
+            }
+        });
+    });
+  </script>
+  
+{% endblock %}

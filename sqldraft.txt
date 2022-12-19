@@ -1,0 +1,20 @@
+CREATE DATABASE flasknote_db;
+use flasknote_db;
+
+CREATE TABLE mynotes (
+    id_note INT AUTO_INCREMENT NOT NULL,
+    title_note VARCHAR(255) NOT NULL,
+    html_note TEXT,
+    PRIMARY KEY(id_note)
+) ENGINE=INNODB;
+
+CREATE TABLE usermynote (
+    id_user INT AUTO_INCREMENT NOT NULL,
+    username VARCHAR(30) NOT NULL,
+    email VARCHAR(30) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id_user)
+) ENGINE=INNODB;
+
+INSERT INTO usermynote (username,email,password) 
+VALUES ('Faizal','faizaln77izaus@gmail.com', '$2a$10$bUvxU0Exi3zKGGqv6xmF7.eoCrZBgCgnko/ZwCTnx5k/HfSiiTfXm');
