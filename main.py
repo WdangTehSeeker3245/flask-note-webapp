@@ -12,7 +12,7 @@ app.secret_key = 'dummytestapp74'
 # Enter your database connection details below
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'admin'
-app.config['MYSQL_PASSWORD'] = 'adminizaus74'
+app.config['MYSQL_PASSWORD'] = 'adminizaus'
 app.config['MYSQL_DB'] = 'flasknote_db'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 

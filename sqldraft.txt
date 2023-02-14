@@ -17,4 +17,4 @@ CREATE TABLE usermynote (
 ) ENGINE=INNODB;
 
 INSERT INTO usermynote (username,email,password) 
-VALUES ('Faizal','faizaln77izaus@gmail.com', '$2a$10$bUvxU0Exi3zKGGqv6xmF7.eoCrZBgCgnko/ZwCTnx5k/HfSiiTfXm');
+VALUES ('Faizal','faizaln77izaus@gmail.com', '$2b$12$HLLASC0W0s5UYkEcYMvBFOUvmzYxnzKjXT3mgpGVnzoy9jyf3rRMe');
