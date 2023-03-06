@@ -59,15 +59,15 @@ def logout():
 def home():
     try :
         username = session['username']
-        police = 'you are not allowed to access this page'
+        msg = 'you are not allowed to access this page'
         if username :
             session['log'] = 'in'
             return render_template('home.html')
         else :
-            return render_template('people-police.html',police=police)
+            return render_template('authorized.html',msg=msg)
     except :
-        police = 'you are not allowed to access this page'
-        return render_template('people-police.html',police=police)
+        msg = 'you are not allowed to access this page'
+        return render_template('authorized.html',msg=msg)
 
 @app.route('/backup')
 def backup():
@@ -83,47 +83,47 @@ def backup():
 def searchnote():
     try :
         username = session['username']
-        police = 'you are not allowed to access this page'
+        msg = 'you are not allowed to access this page'
         if username :
             query = request.args.get('q')
             return render_template('searchnote.html',query=query)
         else :
-            return render_template('people-police.html',police=police)
+            return render_template('authorized.html',msg=msg)
     except :
-        police = 'you are not allowed to access this page'
-        return render_template('people-police.html',police=police)
+        msg = 'you are not allowed to access this page'
+        return render_template('authorized.html',msg=msg)
 
 @app.route('/addnote',methods=['GET','POST'])
 def addnote():
     try :
         username = session['username']
-        police = 'you are not allowed to access this page'
+        msg = 'you are not allowed to access this page'
         if username :
             return render_template('addnote.html')
         else :
-            return render_template('people-police.html',police=police)
+            return render_template('authorized.html',msg=msg)
     except :
-        police = 'you are not allowed to access this page'
-        return render_template('people-police.html',police=police)
+        msg = 'you are not allowed to access this page'
+        return render_template('authorized.html',msg=msg)
 
 @app.route('/viewnote/<id>',methods=['GET'])
 def viewnote(id):
     id_note = id
     try:
         username = session['username']
-        police = 'you are not allowed to access this page'
+        msg = 'you are not allowed to access this page'
         if username :
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cur.execute('SELECT * FROM mynotes WHERE id_note=%s',(id_note,))
             data = cur.fetchone()
             return render_template('viewnote.html',data=data)
         else :
-            return render_template('people-police.html',police=police)
+            return render_template('authorized.html',msg=msg)
 
     except Exception as e:
         print(e)
-        police = 'you are not allowed to access this page'
-        return render_template('people-police.html',police=police)
+        msg = 'you are not allowed to access this page'
+        return render_template('authorized.html',msg=msg)
 
 
 @app.route('/editnote/<id>', methods=['GET','POST'])
@@ -131,7 +131,7 @@ def editnote(id):
     id_note = id
     try:
         username = session['username']
-        police = 'you are not allowed to access this page'
+        msg = 'you are not allowed to access this page'
         if username :
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cur.execute('SELECT * FROM mynotes WHERE id_note=%s',(id_note,))
@@ -139,15 +139,15 @@ def editnote(id):
             return render_template('editnote.html',data=data)
     except Exception as e:
         print(e)
-        police = 'you are not allowed to access this page'
-        return render_template('people-police.html',police=police)
+        msg = 'you are not allowed to access this page'
+        return render_template('authorized.html',msg=msg)
 
 @app.route('/deletenote/<id>', methods=['GET'])
 def deletenote(id):
     id_note = id
     try:
         username = session['username']
-        police = 'you are not allowed to access this page'
+        msg = 'you are not allowed to access this page'
         if username :
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cur.execute('DELETE FROM mynotes WHERE id_note=%s',(id_note,))
@@ -155,8 +155,8 @@ def deletenote(id):
             return render_template('viewnote.html')
     except Exception as e:
         print(e)
-        police = 'you are not allowed to access this page'
-        return render_template('people-police.html',police=police)
+        msg = 'you are not allowed to access this page'
+        return render_template('authorized.html',msg=msg)
 
 
 #### AJAX route ####
@@ -164,7 +164,7 @@ def deletenote(id):
 def ajaxfetchnote():
     try:
         username = session['username']
-        police = 'you are not allowed to access this page'
+        msg = 'you are not allowed to access this page'
         if username :
             cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             cur.execute('SELECT * FROM mynotes')
@@ -172,8 +172,8 @@ def ajaxfetchnote():
             return jsonify(data)
     except Exception as e:
         print(e)
-        police = 'you are not allowed to access this page'
-        return render_template('people-police.html',police=police)
+        msg = 'you are not allowed to access this page'
+        return render_template('authorized.html',msg=msg)
 
 
 @app.route('/ajax/insertnote', methods=['POST'])
@@ -182,7 +182,7 @@ def ajaxinsertnote():
         data = request.get_json()
         try:
             username = session['username']
-            police = 'you are not allowed to access this page'
+            msg = 'you are not allowed to access this page'
             if username :
                 title =  data['title']
                 note = data['note']
@@ -195,8 +195,8 @@ def ajaxinsertnote():
                 return jsonify(msg)
         except Exception as e:
             print(e)
-            police = 'you are not allowed to access this page'
-            return render_template('people-police.html',police=police)
+            msg = 'you are not allowed to access this page'
+            return render_template('authorized.html',msg=msg)
     else:
         msg = {
             'msg':'Some error in request data'
@@ -209,7 +209,7 @@ def ajaxupdatenote():
         data = request.get_json()
         try:
             username = session['username']
-            police = 'you are not allowed to access this page'
+            msg = 'you are not allowed to access this page'
             if username :
                 id = data['id']
                 title =  data['title']
@@ -223,8 +223,8 @@ def ajaxupdatenote():
                 return jsonify(msg)
         except Exception as e:
             print(e)
-            police = 'you are not allowed to access this page'
-            return render_template('people-police.html',police=police)
+            msg = 'you are not allowed to access this page'
+            return render_template('authorized.html',msg=msg)
     else:
         msg = {
             'msg':'Some error in request data'
@@ -237,7 +237,7 @@ def ajaxfindnote():
         data = request.get_json()
         try:
             username = session['username']
-            police = 'you are not allowed to access this page'
+            msg = 'you are not allowed to access this page'
             if username :
                 query = data['query']
                 q = '%'+query+'%'
@@ -249,8 +249,8 @@ def ajaxfindnote():
                 return jsonify(data)
         except Exception as e:
             print(e)
-            police = 'you are not allowed to access this page'
-            return render_template('people-police.html',police=police)
+            msg = 'you are not allowed to access this page'
+            return render_template('authorized.html',msg=msg)
     else:
         msg = {
             'msg':'Some error in request data'

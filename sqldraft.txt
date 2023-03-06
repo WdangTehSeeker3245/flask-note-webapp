@@ -16,5 +16,3 @@ CREATE TABLE usermynote (
     PRIMARY KEY(id_user)
 ) ENGINE=INNODB;
 
-INSERT INTO usermynote (username,email,password) 
-VALUES ('Faizal','faizaln77izaus@gmail.com', '$2b$12$HLLASC0W0s5UYkEcYMvBFOUvmzYxnzKjXT3mgpGVnzoy9jyf3rRMe');
